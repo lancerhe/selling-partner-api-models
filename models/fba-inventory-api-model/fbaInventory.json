@@ -585,7 +585,6 @@
         },
         "lastUpdatedTime": {
           "type": "string",
-          "format": "date-time",
           "description": "The date and time that any quantity was last updated."
         },
         "productName": {
