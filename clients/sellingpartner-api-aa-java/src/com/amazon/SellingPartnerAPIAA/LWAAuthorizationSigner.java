@@ -66,8 +66,8 @@ public class LWAAuthorizationSigner {
      * @return Copy of originalRequest with LWA signature
      * @throws LWAException If calls to fetch LWA access token fails
      */
-    public Request sign(Request originalRequest) throws LWAException {
-        String accessToken = lwaClient.getAccessToken(lwaAccessTokenRequestMeta);
+    public Request sign(Request originalRequest, String restrictedDataToken) throws LWAException {
+        String accessToken = restrictedDataToken != null ? restrictedDataToken : lwaClient.getAccessToken(lwaAccessTokenRequestMeta);
 
         return originalRequest.newBuilder()
                 .addHeader(SIGNED_ACCESS_TOKEN_HEADER_NAME, accessToken)

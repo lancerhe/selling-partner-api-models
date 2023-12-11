@@ -81,6 +81,7 @@ public class ApiClient {
     private LWAAuthorizationSigner lwaAuthorizationSigner;
     private RateLimiter rateLimiter;
     private RateLimitConfiguration rateLimitConfiguration;
+    private String restrictedDataToken;
 
     /*
      * Constructor for ApiClient
@@ -482,6 +483,11 @@ public class ApiClient {
      */
     public ApiClient setWriteTimeout(int writeTimeout) {
         httpClient.setWriteTimeout(writeTimeout, TimeUnit.MILLISECONDS);
+        return this;
+    }
+
+    public ApiClient setRestrictedDataToken(String restrictedDataToken) {
+        this.restrictedDataToken = restrictedDataToken;
         return this;
     }
 
@@ -1038,7 +1044,7 @@ public class ApiClient {
             request = reqBuilder.method(method, reqBody).build();
         }
 
-        request = lwaAuthorizationSigner.sign(request);
+        request = lwaAuthorizationSigner.sign(request, restrictedDataToken);
 
         return request;
     }
